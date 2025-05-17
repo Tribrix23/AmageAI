@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="promptText" placeholder="Enter a prompt">
+    <select id="aspectRatioDropdown">
+      <option value="1:1">1:1</option>
+      <option value="16:9">16:9</option>
+      <option value="4:3">4:3</option>
+    </select>
+    <button onclick="generateImage()">Generate Image</button>
+
+    <div class="outputBoxes"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
