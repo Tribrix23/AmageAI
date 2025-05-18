@@ -36,11 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', function(event) {
     if(event.key === "Enter") {
+      generateButton.disabled = true;
       generateImage();
     }
   });
 
 generateButton.addEventListener('click', () => {
+  generateButton.disabled = true;
   generateImage();
 })
 
@@ -49,7 +51,6 @@ async function generateImage() {
   const aspectRatio = dropdownButton.textContent;
   const outputContainer = document.getElementById('out');
   
-  generateButton.style.display = "none";
 
   const apiUrl = `https://1yjs1yldj7.execute-api.us-east-1.amazonaws.com/default/ai_image?prompt=${encodeURIComponent(prompt)}&aspect_ratio=${aspectRatio}&link=${encodeURIComponent('writecream.com')}`;
 
@@ -67,9 +68,11 @@ async function generateImage() {
 
     outputContainer.innerHTML = '';
     outputContainer.appendChild(imgElement);
-    generateButton.style.display = "block"
+    generateButton.disabled = false;
+    
   } catch (error) {
     alert('Error generating image: ' + error.message);
+    generateButton.disabled = false;
   }
 }
 })
