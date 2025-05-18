@@ -3,21 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Image Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>AI - Image Generator</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="shortcut icon" href="/Screenshot_2025-05-18_at_12-15-19_AI_-_Image_Generator-removebg-preview.png" type="image/x-icon">
 </head>
 <body>
-  <div class="container">
-    <input type="text" id="promptText" placeholder="Enter a prompt">
-    <select id="aspectRatioDropdown">
-      <option value="1:1">1:1</option>
-      <option value="16:9">16:9</option>
-      <option value="4:3">4:3</option>
-    </select>
-    <button onclick="generateImage()">Generate Image</button>
+  <header>
+    <h1>
+      <img src="/Screenshot_2025-05-18_at_12-15-19_AI_-_Image_Generator-removebg-preview.png" alt="" class="logo">
+      AI Image Generator</h1>
+  </header>
+  
+<div class="warning-overlay" id="warningOverlay">
+  <div class="warning-content">
+    <h2>⚠️ Mandatory Disclaimer & Legal Advisory</h2>
 
-    <div class="outputBoxes"></div>
+    <p><strong>Welcome to the AI Image Generator Platform.</strong> Before you begin using this tool, please carefully review the following terms, disclaimers, and safety advisories. These are designed to ensure transparency, legal compliance, and ethical use. Your access to and continued use of this service constitutes full acknowledgment and agreement with the statements below.</p>
+
+    <h3>📌 Nature of the Service</h3>
+    <p>This AI platform enables users to generate visual content by submitting written text prompts. All images are generated autonomously by artificial intelligence algorithms and do not originate from real photographs, scans, or manual human creation. These images are synthetic representations based solely on algorithmic interpretation of user inputs and do not reflect real-world facts or identities.</p>
+
+    <h3>📸 Fictional and Algorithmic Output</h3>
+    <p>The content generated is purely fictional and does not depict actual people, real events, or legitimate trademarks unless by coincidence. Any resemblance to real individuals, whether living or deceased, is purely coincidental and not intentional. The developers of this tool do not design, curate, or validate specific images. All image generation is driven solely by the prompts entered by the user.</p>
+
+    <h3>🚨 Explicit Content and NSFW Advisory</h3>
+    <p>This platform may generate content that is classified as NSFW (Not Safe For Work), including but not limited to: nudity, sexually suggestive themes, erotic depictions, intimate or adult scenarios, fetish imagery, or simulated sexual activity. These types of content are not pre-curated or filtered and may appear as a result of prompts provided by users. You may encounter such content even without the intention to do so, due to the unpredictable nature of generative AI models.</p>
+
+    <h3>🔞 Sexual Content and Age Restriction</h3>
+    <p><strong>Viewer Discretion is Strongly Advised.</strong> The generation of sexual content is possible through user-submitted prompts. This includes adult themes and depictions that may be offensive, graphic, or inappropriate for certain viewers. By continuing to use this tool, you confirm that you are at least 18 years of age or meet the legal age of majority in your jurisdiction. If you are underage, in a public or professional setting, or uncomfortable with sexually explicit content, you must leave this platform immediately.</p>
+
+    <h3>👥 Responsibility for Generated Content</h3>
+    <p>You, the user, bear full and exclusive responsibility for the prompts you submit and any images that are produced as a result. This platform does not review or moderate prompts prior to generation. By using this service, you agree to take full accountability for how the output is used, shared, or interpreted. You must not use this tool to create or disseminate harmful, defamatory, exploitative, discriminatory, abusive, or unlawful content.</p>
+
+    <h3>🚫 Prohibited Uses</h3>
+    <ul>
+      <li>No prompts involving minors (real or fictional) in sexual, violent, or otherwise exploitative scenarios.</li>
+      <li>No depictions of real individuals in compromised or defamatory situations, even if fictionalized.</li>
+      <li>No content that promotes or glorifies hate speech, racial slurs, terrorism, abuse, harassment, or violence.</li>
+      <li>No prompts that attempt to simulate non-consensual acts, real-world crimes, or illegal activity.</li>
+      <li>No use of AI-generated content to deceive, defraud, impersonate, or mislead others.</li>
+    </ul>
+
+    <h3>📜 Legal & Ethical Liability Waiver</h3>
+    <p>The developers, operators, and hosting providers of this platform disclaim all legal liability and responsibility arising from the use or misuse of this tool. By clicking “I Understand,” you agree that:</p>
+    <ul>
+      <li>The platform creators are not liable for any outcomes resulting from generated content.</li>
+      <li>You indemnify and hold harmless the platform owners against any legal claims, damages, or complaints.</li>
+      <li>You use the service at your own risk and accept any consequences, including public, professional, or legal repercussions that may result from generated images.</li>
+    </ul>
+
+    <h3>🔒 Privacy & Data Use Notice</h3>
+    <p>This platform does not require account creation or personal data to function. Prompt input and output are processed anonymously. However, anonymous does not mean untraceable — illegal use may still be subject to investigation. Please avoid including names, addresses, real-world personal data, or identifying descriptions in your prompts to protect your privacy and avoid accidental likeness to real individuals.</p>
+
+    <h3>🎨 Licensing, Usage, and Commercial Use Warning</h3>
+    <p>Generated images are considered user-generated content and may be used for personal, educational, or experimental purposes. However, these images are not guaranteed to be free from unintentional resemblance to copyrighted or trademarked material. Commercial use (e.g., publishing, monetization, advertising, merchandising) is not advised without legal review and is undertaken at your own risk.</p>
+
+    <h3>💡 Platform Intent</h3>
+    <p>This tool was created for creative, artistic, and experimental exploration of AI image generation. It is not intended for use as a weapon of misinformation, harassment, or exploitation. We urge all users to behave responsibly, ethically, and with full awareness of the power and risk associated with generative AI systems.</p>
+
+    <h3>✅ Summary of Acknowledgments</h3>
+    <p>By continuing, you acknowledge and agree that:</p>
+    <ul>
+      <li>You understand that this platform may produce fictional, NSFW, and sexually explicit imagery.</li>
+      <li>You are of legal adult age and are using the platform voluntarily.</li>
+      <li>You are responsible for all input and output data.</li>
+      <li>You agree not to misuse the tool or violate any ethical or legal boundaries.</li>
+      <li>You release the developers from liability related to your usage of the service.</li>
+    </ul>
+
+    <p><em>This message appears every time to ensure informed and conscious use. Thank you for using this platform responsibly.</em></p>
+
+    <button id="understoodBtn">I Understand and Accept the Full Terms</button>
   </div>
+</div>
+
+
+
+  <main class="container">
+    <section class="input-area">
+      <input type="text" id="hf" class="text-input" placeholder="Describe your image...">
+
+      <div class="dropdown-container">
+        <div id="dropdownButton" class="dropdown-button">Select Aspect Ratio</div>
+        <div id="dropdownOptions" class="dropdown-options">
+          <div class="dropdown-option" data-value="1:1">1:1 (Square)</div>
+          <div class="dropdown-option" data-value="16:9">16:9 (Wide)</div>
+          <div class="dropdown-option" data-value="2:3">2:3 (Portrait)</div>
+          <div class="dropdown-option" data-value="3:2">3:2 (Landscape)</div>
+          <div class="dropdown-option" data-value="4:5">4:5 (Portrait)</div>
+          <div class="dropdown-option" data-value="5:4">5:4 (Portrait)</div>
+          <div class="dropdown-option" data-value="9:16">9:16 (Vertical)</div>
+          <div class="dropdown-option" data-value="21:9">21:9 (Cinematic)</div>
+          <div class="dropdown-option" data-value="9:21">9:21 (Vertical Cinema)</div>
+        </div>
+      </div>
+
+      <button class="generate-button" id="GbTn">Generate</button>
+    </section>
+
+    <section class="output-area" id="out">
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>

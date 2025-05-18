@@ -1,9 +1,51 @@
+
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("warningOverlay");
+  const btn = document.getElementById("understoodBtn");
+
+  btn.addEventListener("click", () => {
+    overlay.style.display = "none";
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const generateButton = document.getElementById("GbTn");
+
+  const dropdownButton = document.getElementById('dropdownButton');
+  const dropdownOptions = document.getElementById('dropdownOptions');
+
+  dropdownButton.addEventListener('click', () => {
+    dropdownOptions.style.display = dropdownOptions.style.display === 'block' ? 'none' : 'block';
+  });
+
+  document.querySelectorAll('.dropdown-option').forEach(option => {
+    option.addEventListener('click', () => {
+      dropdownButton.textContent = option.getAttribute('data-value');
+      dropdownOptions.style.display = 'none';
+    });
+  });
+
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-container')) {
+      dropdownOptions.style.display = 'none';
+    }
+  });
+
+generateButton.addEventListener('click', () => {
+  generateImage();
+})
+
 async function generateImage() {
-  const prompt = document.getElementById('promptText').value;
-  const aspectRatio = document.getElementById('aspectRatioDropdown').value;
-  const outputContainer = document.querySelector('.outputBoxes');
+  const prompt = document.getElementById('hf').value;
+  const aspectRatio = dropdownButton.textContent;
+  const outputContainer = document.getElementById('out');
 
   const apiUrl = `https://1yjs1yldj7.execute-api.us-east-1.amazonaws.com/default/ai_image?prompt=${encodeURIComponent(prompt)}&aspect_ratio=${aspectRatio}&link=${encodeURIComponent('writecream.com')}`;
+
+  outputContainer.innerHTML = '<div class=""> <img src="/Screenshot_2025-05-18_at_12-15-19_AI_-_Image_Generator-removebg-preview.png" alt="" class="spinner"> </div>';
 
   try {
     const response = await fetch(apiUrl);
@@ -21,3 +63,6 @@ async function generateImage() {
     alert('Error generating image: ' + error.message);
   }
 }
+})
+
+
