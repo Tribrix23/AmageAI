@@ -45,7 +45,7 @@ async function generateImage() {
 
   const apiUrl = `https://1yjs1yldj7.execute-api.us-east-1.amazonaws.com/default/ai_image?prompt=${encodeURIComponent(prompt)}&aspect_ratio=${aspectRatio}&link=${encodeURIComponent('writecream.com')}`;
 
-  outputContainer.innerHTML = '<div class=""> <img src="/Screenshot_2025-05-18_at_12-15-19_AI_-_Image_Generator-removebg-preview.png" alt="" class="spinner"> </div>';
+  outputContainer.innerHTML = '<div class=""> <img src="./Screenshot_2025-05-18_at_12-15-19_AI_-_Image_Generator-removebg-preview.png" alt="" class="spinner"> </div>';
 
   try {
     const response = await fetch(apiUrl);
