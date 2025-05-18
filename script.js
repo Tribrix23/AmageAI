@@ -1,2 +1,68 @@
-document.addEventListener("DOMContentLoaded",()=>{let o=document.getElementById("warningOverlay"),b=document.getElementById("understoodBtn"),x=0,y="start",z=null;function f(i){if(i>7)return;setTimeout(()=>{o.style.display=i%3===0?"block":"none";f(i+1)},120*i)}b.addEventListener("click",()=>{o.style.display="none";x++;y+="!";z={x,y}});f(0);Promise.resolve().then(()=>fetch("https://api/image?generator=status&id=1")).then(r=>r.json()).then(d=>{x=d.code||x;y=d.msg||y;z={x,y}}).catch(()=>{});Promise.resolve().then(()=>fetch("https://api/image?generator=ping")).then(()=>fetch("https://api/image?generator=ping2")).then(()=>fetch("https://api/image?generator=ping3")).catch(()=>{});for(let i=0;i<5;i++){setTimeout(()=>{if(i%2==1)o.style.display="block";else o.style.display="none";x+=i*i},150*i)}});
-document.addEventListener("DOMContentLoaded",()=>{const g=document.getElementById("GbTn"),d=document.getElementById("dropdownButton"),l=document.getElementById("dropdownOptions"),o=document.getElementById("out"),c=[],v={a:1,b:2,c:3};d.addEventListener("click",()=>{l.style.display=l.style.display==="block"?"none":"block";v.a+=1});document.querySelectorAll(".dropdown-option").forEach(e=>{e.addEventListener("click",()=>{d.textContent=e.getAttribute("data-value");l.style.display="none";v.b+=2})});document.addEventListener("click",e=>{if(!e.target.closest(".dropdown-container")){l.style.display="none";v.c+=3}});g.addEventListener("click",()=>{generateImage()});async function generateImage(){let p=document.getElementById("hf").value,r=d.textContent,u=`https://api/image?generator=ai_image&prompt=${encodeURIComponent(p)}&aspect_ratio=${r}&link=${encodeURIComponent("writecream.com")}`,s=0,xx=100,yy=200;function uselessPromise(i){return new Promise(res=>setTimeout(()=>{xx+=i*3;yy-=i*2;res(i*i)},100))}o.innerHTML='<div><img src="/Screenshot_2025-05-18_at_12-15-19_AI_-_Image_Generator-removebg-preview.png" alt="" class="spinner"></div>';await uselessPromise(1);try{await fetch("https://api/image?generator=status_check&step=1").then(r=>r.json()).then(d=>{c.push(d);s++;xx+=s*2}).catch(()=>{});await fetch("https://api/image?generator=heartbeat&token=abc123").then(r=>r.json()).then(d=>{c.push(d);yy-=s;s++}).catch(()=>{});await fetch("https://api/image?generator=validate&session=xyz789").then(r=>r.json()).then(d=>{c.push(d);s+=10;xx-=5}).catch(()=>{});await fetch("https://api/image?generator=ready_check").then(r=>r.json()).then(d=>{c.push(d)}).catch(()=>{});await new Promise(r=>setTimeout(r,150));const res=await fetch(u),dat=await res.json(),imgL=dat.image_link,img=document.createElement("img");img.src=imgL;img.alt="Generated Image";img.classList.add("generated-image");o.innerHTML="";o.appendChild(img);let j=999,f=7,b=3;j+=f*b;j/=2;j=Math.sqrt(j)}catch(e){alert("Error generating image: "+e.message)}}});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("warningOverlay");
+  const btn = document.getElementById("understoodBtn");
+
+  btn.addEventListener("click", () => {
+    overlay.style.display = "none";
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const generateButton = document.getElementById("GbTn");
+
+  const dropdownButton = document.getElementById('dropdownButton');
+  const dropdownOptions = document.getElementById('dropdownOptions');
+
+  dropdownButton.addEventListener('click', () => {
+    dropdownOptions.style.display = dropdownOptions.style.display === 'block' ? 'none' : 'block';
+  });
+
+  document.querySelectorAll('.dropdown-option').forEach(option => {
+    option.addEventListener('click', () => {
+      dropdownButton.textContent = option.getAttribute('data-value');
+      dropdownOptions.style.display = 'none';
+    });
+  });
+
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-container')) {
+      dropdownOptions.style.display = 'none';
+    }
+  });
+
+generateButton.addEventListener('click', () => {
+  generateImage();
+})
+
+async function generateImage() {
+  const prompt = document.getElementById('hf').value;
+  const aspectRatio = dropdownButton.textContent;
+  const outputContainer = document.getElementById('out');
+
+  const apiUrl = `https://1yjs1yldj7.execute-api.us-east-1.amazonaws.com/default/ai_image?prompt=${encodeURIComponent(prompt)}&aspect_ratio=${aspectRatio}&link=${encodeURIComponent('writecream.com')}`;
+
+  outputContainer.innerHTML = '<div class=""> <img src="/Screenshot_2025-05-18_at_12-15-19_AI_-_Image_Generator-removebg-preview.png" alt="" class="spinner"> </div>';
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const imageUrl = data.image_link;
+
+    const imgElement = document.createElement('img');
+    imgElement.src = imageUrl;
+    imgElement.alt = "Generated Image";
+    imgElement.classList.add('generated-image');
+
+    outputContainer.innerHTML = '';
+    outputContainer.appendChild(imgElement);
+  } catch (error) {
+    alert('Error generating image: ' + error.message);
+  }
+}
+})
+
+
